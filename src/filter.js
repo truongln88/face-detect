@@ -8,8 +8,9 @@ const inquirer = require("inquirer");
 const walk = require("klaw");
 const path = require("path");
 const async = require("async");
+const imageSize = require("image-size");
 
-const IMG_WIDTH = 800;
+const IMG_WIDTH = 1500;
 const TMP_FILE = "__tmp__";
 const SHIN_DIR = "shin";
 const FAMILY_DIR = "family";
@@ -75,9 +76,14 @@ module.exports = async function() {
                         };
 
                         const tmpFile = `${TMP_FILE}${pathInfo.ext}`;
-
+                        let width = Number.MAX_SAFE_INTEGER;
+                        try {
+                            width = imageSize(item.path).width;
+                        } catch (e) {
+                            LOG.info("    May not bee an image?");
+                        }
                         sharp(item.path)
-                            .resize(IMG_WIDTH)
+                            .resize(Math.min(IMG_WIDTH, width))
                             .toFile(tmpFile)
                             .then(() => {
                                 const faces = detector.detectFaces(fr.loadImage(tmpFile));

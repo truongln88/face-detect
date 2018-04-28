@@ -8,7 +8,7 @@ const LOG = require("winston");
 const fr = require("face-recognition");
 const async = require("async");
 
-const IMG_WIDTH = 800;
+const IMG_WIDTH = 2000;
 const DIR_SMALL = "small";
 const DIR_FACES = "faces";
 const PERSON_FOLDER_PREFIX = "p-";
