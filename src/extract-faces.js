@@ -52,13 +52,13 @@ async function extractFacesForPerson(dir) {
             depthLimit: 0
         })
             .on("data", async item => {
-                if (item.stats.isFile() && !item.path.startsWith(".")) {
+                const imagePath = item.path;
+                const imagePathInfo = path.parse(imagePath);
+                if (item.stats.isFile() && !imagePathInfo.name.startsWith(".")) {
                     tasks.push(done => {
-                        const itemPath = item.path;
-                        LOG.info(`    Image: ${itemPath}`);
-                        const pathInfo = path.parse(itemPath);
-                        let smallFilePath = path.join(pathInfo.dir, DIR_SMALL, pathInfo.base);
-                        sharp(itemPath)
+                        LOG.info(`    Image: ${imagePath}`);
+                        let smallFilePath = path.join(imagePathInfo.dir, DIR_SMALL, imagePathInfo.base);
+                        sharp(imagePath)
                             .resize(IMG_WIDTH)
                             .toFile(smallFilePath)
                             .then(() => {
@@ -66,7 +66,7 @@ async function extractFacesForPerson(dir) {
                                 const detector = fr.FaceDetector();
                                 const faceImages = detector.detectFaces(fr.loadImage(smallFilePath));
                                 faceImages.forEach((faceImage, i) => {
-                                    const facePath = path.join(pathInfo.dir, DIR_FACES, `${pathInfo.name}_${i}${pathInfo.ext}`);
+                                    const facePath = path.join(imagePathInfo.dir, DIR_FACES, `${imagePathInfo.name}_${i}${imagePathInfo.ext}`);
                                     fr.saveImage(facePath, faceImage);
                                     LOG.info(`        Face: ${facePath}`);
                                 });
