@@ -1,5 +1,6 @@
 .idea/
 data/
+model.json
 
 # Logs
 logs
