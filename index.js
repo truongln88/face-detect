@@ -4,7 +4,8 @@ const inquirer = require("inquirer");
 
 const P_MAP = new Map([
     ["Extract Faces", "./src/extract-faces.js"],
-    ["Training", "./src/training.js"]
+    ["Training", "./src/training.js"],
+    ["Filter", "./src/filter.js"]
 ]);
 
 (async function() {

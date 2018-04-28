@@ -51,7 +51,7 @@ async function extractFacesForPerson(dir) {
         walk(dir, {
             depthLimit: 0
         })
-            .on("data", async item => {
+            .on("data", item => {
                 const imagePath = item.path;
                 const imagePathInfo = path.parse(imagePath);
                 if (item.stats.isFile() && !imagePathInfo.name.startsWith(".")) {

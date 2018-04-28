@@ -1,6 +1,8 @@
 .idea/
 data/
+test/
 model.json
+__tmp__.*
 
 # Logs
 logs
