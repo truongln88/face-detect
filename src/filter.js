@@ -16,7 +16,7 @@ const SHIN_DIR = "shin";
 const FAMILY_DIR = "family";
 const OTHERS_DIR = "others";
 const FAILED_DIR = "failed";
-const QUALITY = 0.7;
+const QUALITY = 0.6;
 
 module.exports = async function() {
     const { src, dst } = await inquirer.prompt([{
